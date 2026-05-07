@@ -157,6 +157,7 @@
     padding: 10px 10px 0 10px;
     box-shadow: 0 -8px 40px rgba(0,0,0,0.08);
     flex-shrink: 0;
+    position: relative;
   }
   .phone-main {
     width: 240px;
@@ -177,6 +178,32 @@
   .phone-screen img {
     width: 100%;
     display: block;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .phones-wrap .phone {
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+        opacity 0.4s ease;
+      transform-origin: bottom center;
+    }
+    .phones-wrap:has(.phone-side:hover) .phone-side {
+      transform: scale(1.08);
+      z-index: 2;
+      opacity: 1;
+    }
+    .phones-wrap:has(.phone-side:hover) .phone-main {
+      transform: scale(0.87);
+      opacity: 0.78;
+    }
+    .phones-wrap:has(.phone-main:hover) .phone-main {
+      transform: scale(1.08);
+      z-index: 2;
+      opacity: 1;
+    }
+    .phones-wrap:has(.phone-main:hover) .phone-side {
+      transform: scale(0.87);
+      opacity: 0.72;
+    }
   }
 
   /* FEATURES */
