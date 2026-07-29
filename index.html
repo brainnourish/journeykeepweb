@@ -159,6 +159,24 @@
     font-size: 15px;
     font-weight: 600;
   }
+  .store-btn.ig-safari-tip {
+    max-width: min(320px, 100%);
+    width: 100%;
+    cursor: default;
+    pointer-events: none;
+    background: #222;
+    padding: 14px 18px;
+    text-align: left;
+  }
+  .store-btn.ig-safari-tip:hover {
+    transform: none;
+    opacity: 1;
+  }
+  .store-btn.ig-safari-tip .store-label span {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.35;
+  }
 
   /* PHONES */
   .phones-wrap {
@@ -349,6 +367,12 @@
       max-width: 200px;
       padding: 10px 16px;
     }
+    .store-btn.ig-safari-tip {
+      min-width: 0;
+      max-width: min(320px, 100%);
+      width: 100%;
+      padding: 14px 16px;
+    }
     .features {
       padding-top: 64px;
     }
@@ -476,35 +500,21 @@
 
 <script>
 (function () {
-  function isIOS() {
-    var ua = navigator.userAgent || '';
-    return /iPad|iPhone|iPod/.test(ua)
-      || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  }
-
-  function isInAppBrowser() {
-    var ua = navigator.userAgent || '';
-    if (/FBAN|FBAV|Instagram|Line\/|Twitter|LinkedInApp|Snapchat|TikTok|BytedanceWebview|musical_ly|MicroMessenger|GSA\//i.test(ua)) {
-      return true;
-    }
-    // iOS WebView: AppleWebKit present, Safari token missing
-    if (isIOS() && /AppleWebKit/i.test(ua) && !/Safari/i.test(ua)) {
-      return true;
-    }
-    return false;
-  }
-
-  function openAppStoreInSafari(url) {
-    // Breaks out of Instagram/TikTok/etc. into Safari
-    window.location.href = 'x-safari-' + url;
-  }
+  // Instagram (and similar) in-app browsers block reliable App Store / Safari handoff.
+  // Universal Links cannot force Instagram to open Safari from a webpage.
+  var ua = navigator.userAgent || '';
+  if (!/Instagram/i.test(ua)) return;
 
   document.querySelectorAll('a.js-app-store').forEach(function (link) {
-    link.addEventListener('click', function (e) {
-      if (!isIOS() || !isInAppBrowser()) return;
-      e.preventDefault();
-      openAppStoreInSafari(link.href);
-    });
+    link.classList.add('ig-safari-tip');
+    link.removeAttribute('href');
+    link.removeAttribute('target');
+    link.setAttribute('role', 'note');
+    link.setAttribute('aria-label', 'Open this page in Safari to download from the App Store');
+    link.innerHTML =
+      '<div class="store-label">' +
+        '<span>Tap the ••• menu in the top-right, then tap Open in external browser to download</span>' +
+      '</div>';
   });
 })();
 </script>
