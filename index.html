@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JourneyKeep — Screen time RPG for iPhone</title>
+<title>JourneyKeep — Screen time RPG for iPhone &amp; Android</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
@@ -20,42 +20,48 @@
     --gold: #D4A843;
   }
 
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--bg);
     color: var(--text);
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   .container {
+    width: 100%;
     max-width: 600px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 clamp(16px, 5vw, 24px);
     text-align: center;
   }
 
   /* SITE HEADER */
   .site-header {
-    padding: 32px 24px 8px;
+    padding: clamp(20px, 5vw, 32px) clamp(16px, 5vw, 24px) 8px;
     text-align: center;
   }
   .site-header .brand {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
     max-width: 600px;
     margin: 0 auto;
   }
   .logo-mark {
-    width: 88px;
-    height: 88px;
-    border-radius: 22px;
+    width: clamp(64px, 18vw, 88px);
+    height: clamp(64px, 18vw, 88px);
+    border-radius: clamp(16px, 4vw, 22px);
     box-shadow: 0 8px 32px rgba(0,0,0,0.12);
   }
   .site-title {
     font-family: 'DM Sans', sans-serif;
-    font-size: clamp(2.25rem, 8vw, 3rem);
+    font-size: clamp(2rem, 9vw, 3rem);
     font-weight: 700;
     color: var(--text);
     letter-spacing: -0.04em;
@@ -64,32 +70,38 @@
 
   /* HERO */
   .hero {
-    padding: 24px 0 0;
+    padding: 20px 0 0;
   }
   .badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px 8px;
     background: white;
     border: 1px solid #e5e2da;
     border-radius: 100px;
-    padding: 8px 20px;
-    font-size: 14px;
+    padding: 8px 16px;
+    font-size: clamp(12px, 3.4vw, 14px);
     font-weight: 500;
     color: var(--text-muted);
-    margin-bottom: 32px;
+    margin-bottom: 24px;
+    max-width: 100%;
+    line-height: 1.3;
   }
   .badge .stars {
     color: var(--gold);
     letter-spacing: -1px;
   }
   .hero h2 {
-    font-size: 36px;
+    font-size: clamp(1.6rem, 6.5vw, 2.25rem);
     font-weight: 700;
     line-height: 1.2;
-    margin-bottom: 8px;
+    margin: 0 auto 8px;
     letter-spacing: -0.5px;
     color: var(--text);
+    max-width: 22ch;
+    text-wrap: balance;
   }
   .hero .highlight {
     color: var(--green);
@@ -102,8 +114,9 @@
   .store-buttons {
     display: flex;
     justify-content: center;
-    gap: 12px;
-    margin: 32px 0 40px;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 28px 0 36px;
   }
   .store-btn {
     display: inline-flex;
@@ -112,11 +125,12 @@
     background: #111;
     color: white;
     text-decoration: none;
-    padding: 12px 24px;
+    padding: 12px 20px;
     border-radius: 12px;
     font-size: 13px;
     font-weight: 500;
     transition: transform 0.2s, opacity 0.2s;
+    min-height: 48px;
   }
   .store-btn:hover {
     transform: scale(1.03);
@@ -147,36 +161,40 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    gap: 16px;
-    margin-bottom: -4px;
-    padding: 0 12px;
+    gap: clamp(8px, 3vw, 16px);
+    margin: 0 auto -4px;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
   }
   .phone {
     background: #1a1a1a;
-    border-radius: 28px 28px 0 0;
-    padding: 10px 10px 0 10px;
+    border-radius: clamp(18px, 5vw, 28px) clamp(18px, 5vw, 28px) 0 0;
+    padding: clamp(6px, 2vw, 10px) clamp(6px, 2vw, 10px) 0;
     box-shadow: 0 -8px 40px rgba(0,0,0,0.08);
-    flex-shrink: 0;
+    flex: 0 1 auto;
     position: relative;
+    min-width: 0;
   }
   .phone-main {
-    width: 240px;
+    width: min(240px, 48vw);
   }
   .phone-side {
-    width: 180px;
+    width: min(180px, 36vw);
     opacity: 0.9;
   }
   .phone-screen {
-    border-radius: 20px 20px 0 0;
+    border-radius: clamp(14px, 4vw, 20px) clamp(14px, 4vw, 20px) 0 0;
     overflow: hidden;
     background: var(--green-dark);
   }
   .phone-main .phone-screen {
-    border-radius: 20px 20px 0 0;
+    border-radius: clamp(14px, 4vw, 20px) clamp(14px, 4vw, 20px) 0 0;
     background: #1a2e1a;
   }
   .phone-screen img {
     width: 100%;
+    height: auto;
     display: block;
   }
 
@@ -208,59 +226,67 @@
 
   /* FEATURES */
   .features {
-    padding: 60px 0;
+    padding: clamp(40px, 10vw, 60px) 0;
   }
   .features h2 {
-    font-size: 28px;
+    font-size: clamp(1.45rem, 5.5vw, 1.75rem);
     font-weight: 700;
-    margin-bottom: 32px;
+    margin: 0 auto 28px;
     letter-spacing: -0.3px;
+    line-height: 1.2;
+    max-width: 16ch;
   }
   .feature-card {
     background: var(--bg-card);
     border: 1px solid #e8e5dd;
-    border-radius: 20px;
-    padding: 36px 24px;
-    margin-bottom: 16px;
+    border-radius: 18px;
+    padding: clamp(24px, 6vw, 32px) clamp(18px, 5vw, 24px);
+    margin-bottom: 12px;
+    text-align: left;
   }
   .feature-card .icon {
-    font-size: 36px;
-    margin-bottom: 16px;
+    font-size: 28px;
+    margin-bottom: 12px;
+    line-height: 1;
   }
   .feature-card h3 {
-    font-size: 20px;
+    font-size: clamp(1.1rem, 4vw, 1.25rem);
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
   }
   .feature-card p {
-    font-size: 15px;
+    font-size: clamp(14px, 3.6vw, 15px);
     color: var(--text-muted);
-    line-height: 1.5;
+    line-height: 1.55;
   }
 
   /* CTA */
   .cta {
-    padding: 40px 0 80px;
+    padding: clamp(32px, 8vw, 40px) 0 clamp(56px, 12vw, 80px);
   }
   .cta h2 {
-    font-size: 28px;
+    font-size: clamp(1.45rem, 5.5vw, 1.75rem);
     font-weight: 700;
     margin-bottom: 8px;
     line-height: 1.2;
   }
   .cta p {
-    font-size: 15px;
+    font-size: clamp(14px, 3.6vw, 15px);
     color: var(--text-muted);
-    margin-bottom: 28px;
+    margin: 0 auto 28px;
+    max-width: 36ch;
+    line-height: 1.5;
   }
 
   /* FOOTER */
   footer {
-    padding: 24px;
+    padding: 24px clamp(16px, 5vw, 24px);
     text-align: center;
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-muted);
     border-top: 1px solid #e8e5dd;
+    line-height: 1.5;
   }
 
   /* ANIMATIONS */
@@ -268,20 +294,42 @@
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  .hero, .features, .cta {
-    animation: fadeUp 0.6s ease-out both;
+  @media (prefers-reduced-motion: no-preference) {
+    .hero, .features, .cta {
+      animation: fadeUp 0.6s ease-out both;
+    }
+    .features { animation-delay: 0.1s; }
+    .cta { animation-delay: 0.2s; }
   }
-  .features { animation-delay: 0.1s; }
-  .cta { animation-delay: 0.2s; }
 
   @media (max-width: 480px) {
-    .hero h2 { font-size: 28px; }
-    .hero .highlight { font-size: 17px; }
-    .logo-mark { width: 72px; height: 72px; border-radius: 18px; }
-    .phone-main { width: 200px; }
-    .phone-side { width: 150px; }
-    .phones-wrap { gap: 10px; }
-    .store-buttons { flex-direction: column; align-items: center; }
+    .store-buttons {
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      max-width: 280px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .store-btn {
+      justify-content: center;
+      width: 100%;
+    }
+    .phone-side {
+      width: min(132px, 34vw);
+    }
+    .phone-main {
+      width: min(176px, 46vw);
+    }
+  }
+
+  @media (max-width: 360px) {
+    .phone-side {
+      display: none;
+    }
+    .phone-main {
+      width: min(220px, 72vw);
+    }
   }
 </style>
 </head>
@@ -289,7 +337,7 @@
 
 <header class="site-header">
   <div class="brand">
-    <img class="logo-mark" src="assets/image%20%281%29.png" width="88" height="88" alt="JourneyKeep app icon">
+    <img class="logo-mark" src="assets/icon.png" width="88" height="88" alt="JourneyKeep app icon">
     <h1 class="site-title">Journey Keep</h1>
   </div>
 </header>
@@ -297,10 +345,10 @@
 <section class="hero container">
   <div class="badge">
     <span class="stars">★★★★★</span>
-    <span>Dark fantasy RPG design · Research-backed</span>
+    <span>Join 20k+ others completing their side quests</span>
   </div>
 
-  <h2>Earn your doomscroll by completing fun sidequests</h2>
+  <h2>Replace your doom scrolling with fun side quests</h2>
 
   <div class="store-buttons">
     <a href="https://apps.apple.com/us/app/journeykeep-quests-focus/id6749665109" class="store-btn" target="_blank" rel="noopener noreferrer">
@@ -308,6 +356,13 @@
       <div class="store-label">
         <small>Download on the</small>
         <span>App Store</span>
+      </div>
+    </a>
+    <a href="https://play.google.com/store/apps/details?id=com.journeykeep.app" class="store-btn" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24"><path d="M3.61 1.81C3.24 2.2 3 2.79 3 3.56v16.88c0 .77.24 1.36.61 1.75l.11.1L13.5 12.5v-.24L3.72 1.71l-.11.1z" fill="#00d2ff"/><path d="M16.81 15.81l-3.31-3.31v-.24l3.31-3.31.07.04 3.92 2.23c1.12.63 1.12 1.67 0 2.31l-3.92 2.23-.07.05z" fill="#ffcc00"/><path d="M16.88 15.76 13.5 12.38 3.61 22.19c.37.39.98.44 1.67.05l11.6-6.48" fill="#ff3a44"/><path d="M16.88 9 5.28 2.5c-.69-.38-1.3-.34-1.67.05l9.89 9.83 3.38-3.38z" fill="#00f076"/></svg>
+      <div class="store-label">
+        <small>Get it on</small>
+        <span>Google Play</span>
       </div>
     </a>
   </div>
@@ -327,36 +382,36 @@
 </section>
 
 <section class="features container">
-  <h2>Your streak starts in the&nbsp;real world</h2>
+  <h2>How you earn the scroll</h2>
 
   <div class="feature-card">
     <div class="icon">🛡️</div>
-    <h3>Block apps, spend gold</h3>
-    <p>Lock distracting apps on your phone—and unlock them only with gold you earn from real quests like push-ups, studying, and workouts</p>
+    <h3>Lock apps. Spend gold.</h3>
+    <p>Pick the apps that steal your focus. They stay locked until you buy screen time with gold from real quests—push-ups, studying, workouts, and more.</p>
   </div>
 
   <div class="feature-card">
     <div class="icon">🌿</div>
-    <h3>Touch grass before you scroll</h3>
-    <p>Prove you started the morning off your phone before the feed unlocks—a hard stop between bed and brainrot</p>
+    <h3>Touch grass first</h3>
+    <p>Each morning, complete a real-world habit before social unlocks. No quest, no feed.</p>
   </div>
 
   <div class="feature-card">
     <div class="icon">🍃</div>
     <h3>Protect your leaf</h3>
-    <p>Your leaf gets weaker the more you doom scroll.</p>
+    <p>Your leaf thrives when you stay offline—and gets weaker the more you doom scroll. Don't let it die.</p>
   </div>
 
   <div class="feature-card">
     <div class="icon">🔥</div>
-    <h3>Build streaks</h3>
-    <p>Stack days of showing up—you keep streaks alive by winning small battles offline, not by gaming the blocker</p>
+    <h3>Keep the streak</h3>
+    <p>Show up every day. Your streak grows when you earn the scroll in the real world—not by gaming the blocker.</p>
   </div>
 </section>
 
 <section class="cta container">
   <h2>Ready to start<br>your quest?</h2>
-  <p>On iPhone now—built by an 18-year-old, backed by research with USC and the University&nbsp;of&nbsp;Melbourne</p>
+  <p>On iPhone &amp; Android now—built by an 18-year-old, backed by research with USC and the University&nbsp;of&nbsp;Melbourne</p>
 
   <div class="store-buttons">
     <a href="https://apps.apple.com/us/app/journeykeep-quests-focus/id6749665109" class="store-btn" target="_blank" rel="noopener noreferrer">
@@ -364,6 +419,13 @@
       <div class="store-label">
         <small>Download on the</small>
         <span>App Store</span>
+      </div>
+    </a>
+    <a href="https://play.google.com/store/apps/details?id=com.journeykeep.app" class="store-btn" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24"><path d="M3.61 1.81C3.24 2.2 3 2.79 3 3.56v16.88c0 .77.24 1.36.61 1.75l.11.1L13.5 12.5v-.24L3.72 1.71l-.11.1z" fill="#00d2ff"/><path d="M16.81 15.81l-3.31-3.31v-.24l3.31-3.31.07.04 3.92 2.23c1.12.63 1.12 1.67 0 2.31l-3.92 2.23-.07.05z" fill="#ffcc00"/><path d="M16.88 15.76 13.5 12.38 3.61 22.19c.37.39.98.44 1.67.05l11.6-6.48" fill="#ff3a44"/><path d="M16.88 9 5.28 2.5c-.69-.38-1.3-.34-1.67.05l9.89 9.83 3.38-3.38z" fill="#00f076"/></svg>
+      <div class="store-label">
+        <small>Get it on</small>
+        <span>Google Play</span>
       </div>
     </a>
   </div>
