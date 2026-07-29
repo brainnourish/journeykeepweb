@@ -159,23 +159,19 @@
     font-size: 15px;
     font-weight: 600;
   }
-  .store-btn.ig-safari-tip {
+  .ig-safari-tip {
+    display: block;
     max-width: min(320px, 100%);
     width: 100%;
-    cursor: default;
-    pointer-events: none;
+    margin: 0 auto;
     background: #222;
+    color: #fff;
+    border-radius: 12px;
     padding: 14px 18px;
-    text-align: left;
-  }
-  .store-btn.ig-safari-tip:hover {
-    transform: none;
-    opacity: 1;
-  }
-  .store-btn.ig-safari-tip .store-label span {
     font-size: 13px;
     font-weight: 500;
     line-height: 1.35;
+    text-align: left;
   }
 
   /* PHONES */
@@ -367,10 +363,8 @@
       max-width: 200px;
       padding: 10px 16px;
     }
-    .store-btn.ig-safari-tip {
-      min-width: 0;
+    .ig-safari-tip {
       max-width: min(320px, 100%);
-      width: 100%;
       padding: 14px 16px;
     }
     .features {
@@ -417,7 +411,7 @@
         <span>App Store</span>
       </div>
     </a>
-    <a href="https://play.google.com/store/apps/details?id=com.journeykeep.app" class="store-btn" target="_blank" rel="noopener noreferrer">
+    <a href="https://play.google.com/store/apps/details?id=com.journeykeep.app" class="store-btn js-play-store" target="_blank" rel="noopener noreferrer">
       <svg viewBox="0 0 24 24"><path d="M3.61 1.81C3.24 2.2 3 2.79 3 3.56v16.88c0 .77.24 1.36.61 1.75l.11.1L13.5 12.5v-.24L3.72 1.71l-.11.1z" fill="#00d2ff"/><path d="M16.81 15.81l-3.31-3.31v-.24l3.31-3.31.07.04 3.92 2.23c1.12.63 1.12 1.67 0 2.31l-3.92 2.23-.07.05z" fill="#ffcc00"/><path d="M16.88 15.76 13.5 12.38 3.61 22.19c.37.39.98.44 1.67.05l11.6-6.48" fill="#ff3a44"/><path d="M16.88 9 5.28 2.5c-.69-.38-1.3-.34-1.67.05l9.89 9.83 3.38-3.38z" fill="#00f076"/></svg>
       <div class="store-label">
         <small>Get it on</small>
@@ -484,7 +478,7 @@
         <span>App Store</span>
       </div>
     </a>
-    <a href="https://play.google.com/store/apps/details?id=com.journeykeep.app" class="store-btn" target="_blank" rel="noopener noreferrer">
+    <a href="https://play.google.com/store/apps/details?id=com.journeykeep.app" class="store-btn js-play-store" target="_blank" rel="noopener noreferrer">
       <svg viewBox="0 0 24 24"><path d="M3.61 1.81C3.24 2.2 3 2.79 3 3.56v16.88c0 .77.24 1.36.61 1.75l.11.1L13.5 12.5v-.24L3.72 1.71l-.11.1z" fill="#00d2ff"/><path d="M16.81 15.81l-3.31-3.31v-.24l3.31-3.31.07.04 3.92 2.23c1.12.63 1.12 1.67 0 2.31l-3.92 2.23-.07.05z" fill="#ffcc00"/><path d="M16.88 15.76 13.5 12.38 3.61 22.19c.37.39.98.44 1.67.05l11.6-6.48" fill="#ff3a44"/><path d="M16.88 9 5.28 2.5c-.69-.38-1.3-.34-1.67.05l9.89 9.83 3.38-3.38z" fill="#00f076"/></svg>
       <div class="store-label">
         <small>Get it on</small>
@@ -500,22 +494,37 @@
 
 <script>
 (function () {
-  // Instagram (and similar) in-app browsers block reliable App Store / Safari handoff.
-  // Universal Links cannot force Instagram to open Safari from a webpage.
   var ua = navigator.userAgent || '';
-  if (!/Instagram/i.test(ua)) return;
+  var isIOS = /iPad|iPhone|iPod/.test(ua)
+    || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/i.test(ua);
+  var isInstagram = /Instagram/i.test(ua);
 
-  document.querySelectorAll('a.js-app-store').forEach(function (link) {
-    link.classList.add('ig-safari-tip');
-    link.removeAttribute('href');
-    link.removeAttribute('target');
-    link.setAttribute('role', 'note');
-    link.setAttribute('aria-label', 'Open this page in Safari to download from the App Store');
-    link.innerHTML =
-      '<div class="store-label">' +
-        '<span>Tap the ••• menu in the top-right, then tap Open in external browser to download</span>' +
-      '</div>';
-  });
+  // iPhone: hide Google Play so it isn't tapped by mistake
+  if (isIOS) {
+    document.querySelectorAll('a.js-play-store').forEach(function (link) {
+      link.hidden = true;
+    });
+  }
+
+  // Android: hide App Store
+  if (isAndroid) {
+    document.querySelectorAll('a.js-app-store').forEach(function (link) {
+      link.hidden = true;
+    });
+  }
+
+  // Instagram on iPhone: tip above the App Store button (button stays)
+  if (isInstagram && isIOS) {
+    document.querySelectorAll('a.js-app-store').forEach(function (link) {
+      var tip = document.createElement('p');
+      tip.className = 'ig-safari-tip';
+      tip.setAttribute('role', 'note');
+      tip.textContent =
+        'Tap the ••• menu in the top-right, then tap Open in external browser to download';
+      link.parentNode.insertBefore(tip, link);
+    });
+  }
 })();
 </script>
 
