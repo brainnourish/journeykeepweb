@@ -36,7 +36,7 @@
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
-    padding: 0 clamp(16px, 5vw, 24px);
+    padding: 0 clamp(20px, 6vw, 28px);
     text-align: center;
   }
 
@@ -77,17 +77,18 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 6px 8px;
+    gap: 4px 6px;
     background: white;
     border: 1px solid #e5e2da;
     border-radius: 100px;
-    padding: 8px 16px;
-    font-size: clamp(12px, 3.4vw, 14px);
+    padding: 7px 12px;
+    font-size: clamp(11px, 3vw, 13px);
     font-weight: 500;
     color: var(--text-muted);
-    margin-bottom: 24px;
-    max-width: 100%;
+    margin: 0 auto 24px;
+    max-width: min(280px, 78%);
     line-height: 1.3;
+    text-align: center;
   }
   .badge .stars {
     color: var(--gold);
@@ -240,9 +241,10 @@
     background: var(--bg-card);
     border: 1px solid #e8e5dd;
     border-radius: 18px;
-    padding: clamp(24px, 6vw, 32px) clamp(18px, 5vw, 24px);
-    margin-bottom: 12px;
+    padding: clamp(22px, 5vw, 32px) clamp(18px, 5vw, 24px);
+    margin: 0 auto 12px;
     text-align: left;
+    max-width: 420px;
   }
   .feature-card .icon {
     font-size: 28px;
@@ -303,17 +305,31 @@
   }
 
   @media (max-width: 480px) {
+    .container {
+      padding: 0 28px;
+    }
+    .badge {
+      max-width: 240px;
+      padding: 6px 10px;
+      font-size: 11px;
+    }
     .store-buttons {
       flex-direction: column;
-      align-items: stretch;
-      width: 100%;
-      max-width: 280px;
+      align-items: center;
+      width: auto;
+      max-width: none;
       margin-left: auto;
       margin-right: auto;
     }
     .store-btn {
-      justify-content: center;
-      width: 100%;
+      justify-content: flex-start;
+      width: auto;
+      min-width: 180px;
+      max-width: 200px;
+      padding: 10px 16px;
+    }
+    .feature-card {
+      max-width: 100%;
     }
     .phone-side {
       width: min(132px, 34vw);
@@ -337,15 +353,15 @@
 
 <header class="site-header">
   <div class="brand">
-    <img class="logo-mark" src="assets/icon.png" width="88" height="88" alt="JourneyKeep app icon">
-    <h1 class="site-title">Journey Keep</h1>
+    <img class="logo-mark" src="assets/icon.png" width="88" height="88" alt="Journey app icon">
+    <h1 class="site-title">Journey</h1>
   </div>
 </header>
 
 <section class="hero container">
   <div class="badge">
     <span class="stars">★★★★★</span>
-    <span>Join 20k+ others completing their side quests</span>
+    <span>Join 20k+ others completing side quests</span>
   </div>
 
   <h2>Replace your doom scrolling with fun side quests</h2>
@@ -387,31 +403,30 @@
   <div class="feature-card">
     <div class="icon">🛡️</div>
     <h3>Lock apps. Spend gold.</h3>
-    <p>Pick the apps that steal your focus. They stay locked until you buy screen time with gold from real quests—push-ups, studying, workouts, and more.</p>
+    <p>Block the apps that suck you in. Unlock them with gold you earn from real quests like push-ups, studying, or a workout.</p>
   </div>
 
   <div class="feature-card">
     <div class="icon">🌿</div>
     <h3>Touch grass first</h3>
-    <p>Each morning, complete a real-world habit before social unlocks. No quest, no feed.</p>
+    <p>Do one real habit in the morning before social media unlocks. Skip the quest and the apps stay locked.</p>
   </div>
 
   <div class="feature-card">
     <div class="icon">🍃</div>
     <h3>Protect your leaf</h3>
-    <p>Your leaf thrives when you stay offline—and gets weaker the more you doom scroll. Don't let it die.</p>
+    <p>Your leaf stays healthy when you're offline. Doom scroll too much and it starts dying. Don't let that happen.</p>
   </div>
 
   <div class="feature-card">
     <div class="icon">🔥</div>
     <h3>Keep the streak</h3>
-    <p>Show up every day. Your streak grows when you earn the scroll in the real world—not by gaming the blocker.</p>
+    <p>Come back every day. Your streak only grows when you actually earn your screen time, not when you cheat the system.</p>
   </div>
 </section>
 
 <section class="cta container">
-  <h2>Ready to start<br>your quest?</h2>
-  <p>On iPhone &amp; Android now—built by an 18-year-old, backed by research with USC and the University&nbsp;of&nbsp;Melbourne</p>
+  <h2>Ready to start<br>your first quest?</h2>
 
   <div class="store-buttons">
     <a href="https://apps.apple.com/us/app/journeykeep-quests-focus/id6749665109" class="store-btn" target="_blank" rel="noopener noreferrer">
