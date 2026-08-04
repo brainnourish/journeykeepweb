@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Opening Journey…</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/store-link.css">
+  <style>
+    :root {
+      --bg: #faf8f3;
+      --card: #f3f0e8;
+      --text: #1a1a1a;
+      --muted: #6b6b6b;
+      --green: #2d5a3d;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100svh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      text-align: center;
+    }
+
+    main {
+      width: min(100%, 390px);
+      padding: 30px 24px;
+      border: 1px solid #e8e5dd;
+      border-radius: 24px;
+      background: var(--card);
+    }
+
+    .logo {
+      width: 84px;
+      height: 84px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14);
+    }
+
+    h1 {
+      margin: 18px 0 8px;
+      font-size: 28px;
+      line-height: 1.1;
+    }
+
+    #status {
+      min-height: 48px;
+      margin: 0 auto 20px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .store-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 52px;
+      padding: 12px 18px;
+      border-radius: 13px;
+      background: var(--green);
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .small {
+      margin: 15px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <img class="logo" src="../assets/icon.png" width="84" height="84" alt="Journey app icon">
+    <h1>Opening Journey…</h1>
+    <p id="status" role="status" aria-live="polite">Taking you to the app store.</p>
+    <a id="manual-store-link" class="store-button" data-store="ios"
+      href="https://apps.apple.com/ua/app/journeykeep-daily-sidequests/id6749665109?l=ru">
+      Open the App Store
+    </a>
+    <p class="small">If nothing happens, use the button above.</p>
+  </main>
+
+  <script src="../assets/store-link.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      var store = window.JourneyStore;
+      var params = new URLSearchParams(window.location.search);
+      var source = (params.get('src') || '').toLowerCase();
+      var platform = store.isAndroid() ? 'android' : 'ios';
+      var neutralLinks = {
+        ios: store.IOS_STORE_URL,
+        android: store.ANDROID_STORE_URL
+      };
+
+      // Replace these direct URLs with each channel's attribution URL.
+      // Unknown or missing src values intentionally use the neutral destination.
+      var attributionLinks = {
+        instagram: neutralLinks,
+        facebook: neutralLinks,
+        messenger: neutralLinks,
+        threads: neutralLinks,
+        tiktok: neutralLinks
+      };
+
+      var channelLinks = Object.prototype.hasOwnProperty.call(attributionLinks, source)
+        ? attributionLinks[source]
+        : neutralLinks;
+      var attributionLink = channelLinks[platform];
+      var manualLink = document.getElementById('manual-store-link');
+      var status = document.getElementById('status');
+      var isMobile = store.isIOS()
+        || store.isAndroid()
+        || /Mobi|Mobile/i.test(navigator.userAgent);
+      var switched = false;
+
+      manualLink.href = neutralLinks[platform];
+      manualLink.dataset.store = platform;
+      manualLink.textContent = platform === 'android'
+        ? 'Open Google Play'
+        : 'Open the App Store';
+
+      function markSwitched(event) {
+        if (document.visibilityState === 'visible' && event.type === 'visibilitychange') {
+          return;
+        }
+        switched = true;
+      }
+
+      document.addEventListener('visibilitychange', markSwitched, { once: true });
+      window.addEventListener('pagehide', markSwitched, { once: true });
+      window.addEventListener('blur', markSwitched, { once: true });
+
+      window.setTimeout(function () {
+        if (!switched) {
+          status.textContent = 'Still here? Tap the button below to open the app store.';
+        }
+      }, 1800);
+
+      if (!isMobile) {
+        window.location.replace('../');
+        return;
+      }
+
+      if (store.isIOS() && store.isInstagramInApp()) {
+        fetch(attributionLink, {
+          mode: 'no-cors',
+          keepalive: true
+        }).catch(function () {});
+
+        window.location.href =
+          'instagram://extbrowser/?url=' + encodeURIComponent(store.IOS_STORE_URL);
+        return;
+      }
+
+      window.location.replace(attributionLink);
+    })();
+  </script>
+</body>
+</html>
